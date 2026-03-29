@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0" stop-color="#fdeef5"/>
+      <stop offset="1" stop-color="#f0f7ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#g)"/>
+  <g transform="translate(80,80)">
+    <circle cx="200" cy="200" r="160" fill="#fff3f8" stroke="#f5d6e8" stroke-width="6"/>
+    <text x="420" y="200" font-family="Playfair Display, serif" font-size="42" fill="#7b1fa2">Luna Racconta Storie</text>
+  </g>
+</svg>
