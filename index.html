@@ -1,103 +1,924 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Landing Page ASP Clone</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Font Awesome per icone -->
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    <!-- EmailJS SDK -->
-    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Favole su Misura</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* smooth scrolling for anchor links */
+        html { scroll-behavior: smooth; }
+
+        /* Top navigation bar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 22px;
+            background: linear-gradient(90deg, #fdf0e0, #fdf0e0);
+            border-bottom: 1px solid rgba(123,31,162,0.06);
+            box-shadow: 0 6px 20px rgba(123,31,162,0.06);
+            z-index: 1200;
+            
+        }
+        .nav-left { font-family: 'Playfair Display', serif; color: #7b1fa2; font-size: 1.2rem; font-weight:700; display: inline-flex; align-items: center; gap: 10px; }
+        .nav-left .brand-text { display: inline-block; }
+        .logo-badge {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: inline-block;
+            background-image: url('@Url.Content("~/img/LunaPiccolissima.svg")');
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 6px 14px rgba(123,31,162,0.12);
+            
+        }
+        .nav-right a { margin-left: 18px; color: #4a0f62; text-decoration: none; font-weight:600; }
+        .nav-right a:hover { color: #7b1fa2; }
+
+        
+        body { padding-top: 64px; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(180deg, #396072, #396072);
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+       
+        header {
+            position: relative;
+            background: linear-gradient(135deg, #396072, #396072);
+            padding: 100px 20px;
+            text-align: center;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15), inset 0 -20px 40px rgba(0,0,0,0.1);
+           /*  animation: headerFloat 6s ease-in-out infinite alternate; */
+        }
+
+        @keyframes headerFloat {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2rem;
+            margin-bottom: 20px;
+            color: #7b1fa2;
+            text-shadow: 2px 2px 6px rgba(255,255,255,0.7);
+            opacity: 0;
+            animation: fadeIn 1.5s forwards;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: auto;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        section {
+            padding: 70px 20px;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        /* Features section background (container delle 3 card) */
+        #features {
+            background: #396072;
+            color: #fff; /* testo bianco per miglior contrasto sullo sfondo scuro */
+            border-radius: 12px;
+            padding: 40px 20px;
+        }
+
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: linear-gradient(145deg, #fdf0e0, #fdf0e0);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(123,31,162,0.15);
+            text-align: center;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        }
+
+            .card:hover {
+                transform: translateY(-10px) scale(1.03);
+                box-shadow: 0 25px 45px rgba(123,31,162,0.25);
+            }
+
+            .card h3 {
+                margin-bottom: 15px;
+                color: #7b1fa2;
+                text-shadow: 1px 1px 3px rgba(255,255,255,0.6);
+            }
+
+        /* improved card visuals */
+        .card .price {
+            display: inline-block;
+            background: linear-gradient(90deg,#7b1fa2,#d81b60);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 999px;
+            font-weight: 800;
+            box-shadow: 0 8px 20px rgba(123,31,162,0.12);
+            margin-top: 10px;
+            margin-bottom: 14px;
+        }
+        .card ul {
+            text-align: left;
+            margin: 12px 0 18px 0;
+            padding-left: 18px;
+            color: #4a0f62;
+        }
+        .card ul li { margin-bottom: 8px; }
+        .card .card-footer { margin-top: 12px; }
+        .card .card-cta { background: transparent; border: 2px solid #7b1fa2; color: #7b1fa2; padding: 10px 16px; border-radius: 999px; cursor: pointer; transition: all 160ms ease; }
+        .card .card-cta:hover { background: #7b1fa2; color:#fff; transform: translateY(-4px); box-shadow: 0 14px 36px rgba(123,31,162,0.12); }
+
+        /* Sezione Come funziona */
+        .process {
+            background: linear-gradient(145deg, #396072, #fdf0e0);
+            border-radius: 30px;
+            padding: 50px 20px;
+            text-shadow: 1px 1px 3px rgba(255,255,255,0.6);
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+        }
+
+        .step {
+            background: linear-gradient(145deg, #fff0f5, #f0f4ff);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(123,31,162,0.1);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            font-size: 1.1rem;
+        }
+
+            .step:hover {
+                transform: translateY(-10px) scale(1.03);
+                box-shadow: 0 25px 45px rgba(123,31,162,0.2);
+            }
+
+        .step-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .process h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #7b1fa2;
+            text-shadow: 1px 1px 3px rgba(255,255,255,0.5);
+        }
+
+        /* CTA centrata */
+        .cta {
+            text-align: center;
+            background: linear-gradient(135deg, #fdf0e0, #fdf0e0);
+            border-radius: 30px;
+            padding: 50px 30px;
+            margin: 40px auto;
+            max-width: 600px;
+        }
+
+            .cta h2 {
+                margin-bottom: 20px;
+                color: #7b1fa2;
+                text-shadow: 1px 1px 3px rgba(255,255,255,0.5);
+            }
+
+            .cta a {
+                display: inline-block;
+                background: #d81b60;
+                color: white;
+                padding: 16px 36px;
+                border-radius: 40px;
+                text-decoration: none;
+                font-weight: 500;
+                transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+                box-shadow: 0 5px 15px rgba(216,27,96,0.4);
+            }
+
+                .cta a:hover {
+                    transform: scale(1.08);
+                    background: #ad1457;
+                    box-shadow: 0 10px 25px rgba(216,27,96,0.6);
+                }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            font-size: 0.9rem;
+            color: #fdf0e0;
+            background: linear-gradient(100deg, #396072, #396072);
+        }
+        /* Modal & form styles (palette + fade/scale animations) */
+        .cta-button {
+            display: inline-block;
+            background: #7b1fa2;
+            color: white;
+            padding: 16px 36px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+            box-shadow: 0 6px 18px rgba(216,27,96,0.35);
+        }
+
+            .cta-button:hover {
+                transform: scale(1.06);
+                background: #ad1457;
+            }
+
+        /* Hero split layout (image left, card right) */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            align-items: stretch;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.08);
+        }
+        .hero-left {
+            background-image: url('@Url.Content("~/img/LunaPIccola.png")');
+            background-size: cover;
+            background-position: center;
+            min-height: 420px;
+            position: relative;
+        }
+        .hero-left::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(255,250,255,0.06), rgba(0,0,0,0.06));
+        }
+        .hero-right {
+            background: #fdf0e0;
+            padding: 46px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Carousel styles */
+        .carousel {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.6s ease;
+            will-change: transform;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            align-items: stretch;
+        }
+
+        .carousel-prev, .carousel-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.9);
+            border: none;
+            width: 42px;
+            height: 42px;
+            border-radius: 999px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+            cursor: pointer;
+            font-size: 20px;
+            color: #6a1b9a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            pointer-events: auto;
+        }
+
+        .carousel-prev { left: 12px; }
+        .carousel-next { right: 12px; }
+
+        .carousel-dots {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 12px;
+            display: flex;
+            gap: 8px;
+            z-index: 40;
+        }
+
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.7);
+            border: 1px solid rgba(106,27,154,0.12);
+            cursor: pointer;
+        }
+
+        .carousel-dot.is-active { background: linear-gradient(90deg,#7b1fa2,#d81b60); }
+        .hero-right .brand { font-family: 'Playfair Display', serif; color:#7b1fa2; font-weight:700; letter-spacing:1px; margin-bottom:10px; }
+        .hero-title { font-family: 'Playfair Display', serif; color:#6a1b9a; font-size:2.2rem; margin-bottom:12px; }
+        .hero-lead { color:#5b3a4a; margin-bottom:20px; max-width:480px; }
+        .hero-actions { margin-top:10px; }
+
+        @media (max-width: 900px){
+            .hero { grid-template-columns: 1fr; }
+            body { padding-top: 72px; }
+        }
+
+        /* modal overlay: always partecipa in layout */
+        .modal {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.45);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 260ms cubic-bezier(.2,.8,.2,1), visibility 260ms ease;
+        }
+
+            .modal[aria-hidden="false"] {
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+            }
+
+        .modal-content {
+            background: linear-gradient(180deg, #fff, #fffafc);
+            border-radius: 16px;
+            padding: 22px;
+            max-width: 640px;
+            width: 94%;
+            box-shadow: 0 30px 80px rgba(123,31,162,0.18);
+            position: relative;
+            transform: translateY(18px) scale(.98);
+            opacity: 0;
+            transition: transform 260ms cubic-bezier(.2,.8,.2,1), opacity 260ms ease;
+            border: 1px solid rgba(123,31,162,0.06);
+            max-height: 80vh;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-right: 18px;
+        }
+
+        .modal[aria-hidden="false"] .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+
+        .modal-close {
+            position: absolute;
+            right: 12px;
+            top: 10px;
+            background: transparent;
+            border: none;
+            font-size: 1.6rem;
+            cursor: pointer;
+            color: #7b1fa2;
+            transition: color 160ms ease;
+        }
+
+            .modal-close:hover {
+                color: #4a0f62;
+            }
+
+        #contactForm label {
+            display: block;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            color: #333;
+        }
+
+        #contactForm input[type="text"], #contactForm textarea, #contactForm input[type="email"]{
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 10px;
+            border: 1px solid rgba(57,96,114,0.18);
+            margin-top: 8px;
+            font-size: 0.98rem;
+            box-shadow: inset 0 4px 12px rgba(123,31,162,0.03);
+            background: linear-gradient(180deg,#fffaf0,#fdf6e8);
+            color: #163041;
+        }
+
+        fieldset {
+            border: none;
+            margin: 12px 0;
+            padding: 0;
+        }
+
+            fieldset legend {
+                font-weight: 700;
+                margin-bottom: 10px;
+                color: #6a1b9a;
+            }
+
+            fieldset .option {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                margin-right: 8px;
+                margin-bottom: 8px;
+                padding: 8px 12px;
+                border-radius: 12px;
+                cursor: pointer;
+                user-select: none;
+                border: 1px solid rgba(57,96,114,0.08);
+                background: linear-gradient(180deg, rgba(253,240,224,0.9), rgba(255,250,245,0.9));
+                color: #163041;
+                font-weight: 600;
+                font-size: 0.95rem;
+                transition: transform 140ms ease, box-shadow 140ms ease, background 140ms ease;
+            }
+
+                fieldset .option input {
+                    margin: 0 8px 0 0;
+                }
+
+                fieldset .option:hover {
+                    transform: translateY(-3px);
+                    box-shadow: 0 8px 24px rgba(123,31,162,0.08);
+                }
+
+                fieldset .option.selected {
+                    background: linear-gradient(90deg,#396072,#f4cfa8);
+                    color: #163041;
+                    box-shadow: 0 14px 36px rgba(57,96,114,0.12);
+                    transform: translateY(-2px);
+                }
+
+        .cta-submit {
+            background: linear-gradient(90deg, #7b1fa2, #d81b60);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+            box-shadow: 0 10px 30px rgba(123,31,162,0.14);
+        }
+
+            .cta-submit:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 18px 42px rgba(123,31,162,0.18);
+            }
+    </style>
+    <!-- EmailJS SDK (client-side email) -->
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 </head>
 <body>
 
-<!-- Hero Section -->
-<section class="hero">
-    <div class="hero-content">
-        <h1>Benvenuto nella nostra Landing Page</h1>
-        <p>Scopri i nostri pacchetti e servizi.</p>
-        <button id="openContactHero" class="cta-button">Contattaci</button>
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="nav-left"> <span class="logo-badge" aria-hidden="true"></span><span class="brand-text">Luna Racconta</span></div>
+        <div class="nav-right">
+            <a href="#features">Cosa Riceverai</a>
+             <a href="#how">Come Funziona</a>
+            <a href="#contact" id="navContact">Contattami</a>
+        </div>
+    </nav>
+
+    <header>
+        <!-- Carousel: each slide contains the hero-left and hero-right layout -->
+        <div class="carousel" aria-roledescription="carousel">
+            <div class="carousel-track">
+                <!-- Slide 1 -->
+                <div class="carousel-slide" data-index="0">
+                    <div class="hero">
+                        <div class="hero-left" style="background-image: url('@Url.Content("~/img/LunaPIccola.png")')" aria-hidden="true"></div>
+                        <div class="hero-right">
+                            <div class="brand">Luna Racconta Storie</div>
+                            <h1 class="hero-title">Lascia che la favola trovi chi la merita</h1>
+                            <p class="hero-lead">Favole personalizzate, audio narrato e video illustrato — racconti che custodiscono emozioni e ricordi.</p>
+                            <div class="hero-actions">
+                                <button id="openContactHero" class="cta-button">Richiedi una favola</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 2 (example placeholder, ready for future images) -->
+                <div class="carousel-slide" data-index="1">
+                    <div class="hero">
+                        <div class="hero-left" style="background-image: url('@Url.Content("~/img/Luna.svg")')" aria-hidden="true"></div>
+                        <div class="hero-right">
+                            <div class="brand">Luna Racconta Storie</div>
+                            <h1 class="hero-title">Favole che restano nel cuore</h1>
+                            <p class="hero-lead">Racconti su misura per ogni occasione — creati con cura e passione.</p>
+                            <div class="hero-actions">
+                                <button class="cta-button">Richiedi una favola</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="carousel-prev" aria-label="Previous">‹</button>
+            <button class="carousel-next" aria-label="Next">›</button>
+
+            <div class="carousel-dots" role="tablist" aria-label="Slide navigation"></div>
+        </div>
+    </header>
+
+  <section id="features">
+        <h2 style="text-align:center; margin-bottom:40px; color:#7b1fa2">Cosa riceverai</h2>
+        <div class="features">
+            <div class="card">
+                <div>
+                    <h3>La Luna Parla</h3>
+                    <div class="price">39 €</div>
+                    <p style="color:#5b3a4a">Favola personalizzata scritta su misura e traccia audio narrata professionalmente, pronta per essere condivisa.</p>
+                    <ul>
+                        <li>Testo della favola personalizzato</li>
+                        <li>Traccia audio narrata (mp3)</li>
+                        <li>Consegna digitale in 3-5 giorni</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <button type="button" class="card-cta" data-package="30 euro" onclick="selectPackage('30 euro')">Scegli questo</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div>
+                    <h3>Sotto lo Stesso Cielo</h3>
+                    <div class="price">59 €</div>
+                    <p style="color:#5b3a4a">Favola + audio, più un video illustrato con immagini emozionali e montaggio semplice.</p>
+                    <ul>
+                        <li>Tutto del pacchetto base</li>
+                        <li>Video illustrato (MP4)</li>
+                        <li>Musiche royalty-free incluse</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <button type="button" class="card-cta" data-package="60 euro" onclick="selectPackage('60 euro')">Scegli questo</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div>
+                    <h3>Edizione Ricordo</h3>
+                    <div class="price">89 €</div>
+                    <p style="color:#5b3a4a">Pacchetto completo con PDF personalizzato e versione stampabile incorniciata, perfetta da conservare.</p>
+                    <ul>
+                        <li>Tutto del pacchetto intermedio</li>
+                        <li>PDF impaginato della favola</li>
+                        <li>Versione stampabile con QR code</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <button type="button" class="card-cta" data-package="90 euro" onclick="selectPackage('90 euro')">Scegli questo</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    @* <section class="process">
+    <h2 id="how">Come funziona</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-icon">📝</div>
+                <strong>1.</strong> Mi racconti chi è il destinatario e cosa vuoi comunicare
+            </div>
+            <div class="step">
+                <div class="step-icon">✨</div>
+                <strong>2.</strong> Creo la favola, l'audio e il video personalizzati
+            </div>
+            <div class="step">
+                <div class="step-icon">🎁</div>
+                <strong>3.</strong> Ricevi il tuo racconto magico pronto da vivere
+            </div>
+        </div>
+    </section> *@
+
+    <section class="cta">
+    <h2 id="contact">Regala un'emozione che resta</h2>
+        <p style="margin-bottom:30px;">Perfetta per compleanni, nascite, occasioni speciali o semplicemente per dire "ti voglio bene".</p>
+        <button id="openContact" class="cta-button">Contattami</button>
+    </section>
+
+    <!-- Modal contatto -->
+    <div id="contactModal" class="modal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-labelledby="modalTitle" aria-describedby="modalDesc">
+            <button class="modal-close" id="closeModal" aria-label="Chiudi">×</button>
+            <h3 id="modalTitle">Richiedi la tua favola personalizzata</h3>
+            <p id="modalDesc">Compila i campi qui sotto e invia la richiesta.</p>
+            <form id="contactForm">
+                <label>
+                    Nome committente<br>
+                    <input type="text" id="committente" name="committente" placeholder="inserisci il tuo nome" required />
+                </label>
+                <label>
+                    Email<br>
+                    <input type="email" id="email" name="email" placeholder="la tua email" required />
+                </label>
+
+                <label>
+                    Telefono (facoltativo)<br>
+                    <input type="text" id="telefono" name="telefono" placeholder="numero di telefono" />
+                </label>
+                <label>
+                    Nome destinatario<br>
+                    <input type="text" id="destinatario" name="destinatario" placeholder="nome del destinatario" required />
+                </label>
+                <label>
+                    breve descrizione su come vi siete conosciuti e sul destinatario <br>
+                    <textarea id="conoscenza" name="conoscenza" placeholder="Breve descrizione" rows="3" required></textarea>
+                </label>
+                <fieldset>
+                    <legend>Stile della favola (scegli una sola opzione)</legend>
+                    <label class="option"><input type="radio" name="stile" value="Disney" required><span>Disney</span></label>
+                    <label class="option"><input type="radio" name="stile" value="Simpson"><span>Simpson</span></label>
+                    <label class="option"><input type="radio" name="stile" value="Principe e Principessa"><span>Principe e Principessa</span></label>
+                    <label class="option"><input type="radio" name="stile" value="Fumetto"><span>Fumetto</span></label>
+                </fieldset>
+                <fieldset>
+                    <legend>Pacchetto</legend>
+                    <label class="option"><input type="radio" name="pacchetto" value="30 euro" required><span>Pacchetto base 39 €</span></label>
+                    <label class="option"><input type="radio" name="pacchetto" value="60 euro"><span>Pacchetto intermedio 59 €</span></label>
+                    <label class="option"><input type="radio" name="pacchetto" value="90 euro"><span>Pacchetto completo 89 €</span></label>
+                </fieldset>
+                <div style="text-align:center; margin-top:18px;">
+                    <button type="submit" class="cta-submit">Invia richiesta</button>
+                </div>
+            </form>
+        </div>
     </div>
-</section>
 
-<!-- Carousel Section -->
-<section class="carousel-section">
-    <button class="carousel-prev"><i class="fas fa-chevron-left"></i></button>
-    <div class="carousel-track-container">
-        <ul class="carousel-track">
-            <li class="carousel-slide"><img src="img/LunaPiccola.png" alt="Slide 1"></li>
-            
-        </ul>
-    </div>
-    <button class="carousel-next"><i class="fas fa-chevron-right"></i></button>
-    <div class="carousel-dots" role="tablist"></div>
-</section>
+    <footer>
+        © 2025 Favole su Misura – Tutti i diritti riservati
+    </footer>
 
-<!-- Packages Section -->
-<section class="packages">
-    <div class="package-card">
-        <h3>Pacchetto Base</h3>
-        <p>Descrizione del pacchetto base.</p>
-        <button class="card-cta" data-package="Base">Seleziona</button>
-    </div>
-    <div class="package-card">
-        <h3>Pacchetto Premium</h3>
-        <p>Descrizione del pacchetto premium.</p>
-        <button class="card-cta" data-package="Premium">Seleziona</button>
-    </div>
-    <div class="package-card">
-        <h3>Pacchetto Deluxe</h3>
-        <p>Descrizione del pacchetto deluxe.</p>
-        <button class="card-cta" data-package="Deluxe">Seleziona</button>
-    </div>
-</section>
+    <script>
+               (function(){
+          const openBtn = document.getElementById('openContact');
+          const modal = document.getElementById('contactModal');
+          const closeBtn = document.getElementById('closeModal');
+          const form = document.getElementById('contactForm');
+          // EmailJS configuration - replace with your own IDs from emailjs.com
+          const EMAILJS_USER_ID = 'F2qU7FfHmvS-C5C7J';
+          const EMAILJS_SERVICE_ID = 'service_7guefxe';
+          const EMAILJS_TEMPLATE_ID = 'template_jq9br66';
+          // initialize EmailJS (script is loaded in head)
+          if(typeof emailjs !== 'undefined' && emailjs.init) {
+            emailjs.init(EMAILJS_USER_ID);
+          }
 
-<!-- Contact Modal -->
-<div id="contactModal" class="modal" aria-hidden="true">
-    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
-        <button id="closeModal" class="close-btn">&times;</button>
-        <h2 id="contactTitle">Contattaci</h2>
-        <form id="contactForm">
-            <label for="committente">Committente:</label>
-            <input type="text" id="committente" name="committente" required>
+          function openModal(){
+            modal.setAttribute('aria-hidden','false');
+            document.body.style.overflow='hidden';
+          }
 
-            <label for="destinatario">Destinatario:</label>
-            <input type="text" id="destinatario" name="destinatario" required>
+          function closeModal(){
+            modal.setAttribute('aria-hidden','true');
+            document.body.style.overflow='';
+          }
 
-            <label for="conoscenza">Come ci hai conosciuto:</label>
-            <input type="text" id="conoscenza" name="conoscenza">
+          openBtn.addEventListener('click', openModal);
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
+          const openHeroBtn = document.getElementById('openContactHero');
+          if(openHeroBtn) openHeroBtn.addEventListener('click', openModal);
 
-            <label for="telefono">Telefono:</label>
-            <input type="tel" id="telefono" name="telefono">
+          closeBtn.addEventListener('click', closeModal);
 
-            <fieldset>
-                <legend>Stile preferito:</legend>
-                <label><input type="checkbox" name="stile" value="Moderno"> Moderno</label>
-                <label><input type="checkbox" name="stile" value="Classico"> Classico</label>
-                <label><input type="checkbox" name="stile" value="Minimal"> Minimal</label>
-            </fieldset>
+          modal.addEventListener('click', function(e){
+            if(e.target===modal) closeModal();
+          });
 
-            <fieldset>
-                <legend>Pacchetto scelto:</legend>
-                <label><input type="radio" name="pacchetto" value="Base"> Base</label>
-                <label><input type="radio" name="pacchetto" value="Premium"> Premium</label>
-                <label><input type="radio" name="pacchetto" value="Deluxe"> Deluxe</label>
-            </fieldset>
+          document.addEventListener('keydown', function(e){
+            if(e.key==='Escape') closeModal();
+          });
 
-            <button type="submit" class="cta-submit">Invia Richiesta</button>
-        </form>
-    </div>
-</div>
 
-<!-- Footer -->
-<footer>
-    <p>&copy; 2026 Landing Page Clone. Tutti i diritti riservati.</p>
-</footer>
+          // 🔹 funzione chiamata dalle card
+          window.selectPackage = function(pkgValue){
 
-<script src="script.js"></script>
+            const input = document.querySelector(`input[name="pacchetto"][value="${pkgValue}"]`);
+
+            if(input){
+              input.checked = true;
+              input.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+
+            openModal();
+          };
+
+          // Assicura il supporto touch/click per i pulsanti di selezione pacchetto su dispositivi mobili
+          document.querySelectorAll('.card-cta').forEach(btn => {
+            const pkg = btn.getAttribute('data-package') || (btn.getAttribute('onclick') || '').match(/selectPackage\('(.+?)'\)/)?.[1];
+            if(!pkg) return;
+            const handler = function(e){ e.preventDefault(); window.selectPackage(pkg); };
+            btn.addEventListener('click', handler);
+            try {
+              btn.addEventListener('touchend', handler, { passive: false });
+            } catch (ex) {
+              // alcuni browser meno recenti non supportano opzioni degli eventi
+              btn.addEventListener('touchend', handler);
+            }
+          });
+
+
+          form.addEventListener('submit', function(e){
+            e.preventDefault();
+
+            const submitBtn = form.querySelector('.cta-submit');
+            if(submitBtn) submitBtn.disabled = true;
+
+            const comm = document.getElementById('committente').value.trim();
+            const dest = document.getElementById('destinatario').value.trim();
+            const conos = document.getElementById('conoscenza').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const telefono = document.getElementById('telefono').value.trim();
+            const stileEls = Array.from(document.querySelectorAll('input[name="stile"]:checked'));
+            const stili = stileEls.map(i=>i.value).join(', ') || 'Nessuno selezionato';
+
+            const pac = document.querySelector('input[name="pacchetto"]:checked');
+            const pacVal = pac ? pac.value : 'Non selezionato';
+
+            const subject = `Richiesta favola da ${comm || 'Anonimo'}`;
+
+                    const messageBody = `Committente: ${comm} \nEmail: ${email}
+        \nTelefono: ${telefono}\nDestinatario:  ${dest}\nDescrizione: ${conos}\nStile richiesto: ${stili}\nPacchetto: ${pacVal}`;
+
+            const templateParams = {
+              subject: subject,
+              committente: comm,
+              destinatario: dest,
+              conoscenza: conos,
+              stile: stili,
+              pacchetto: pacVal,
+              // common EmailJS template fields for compatibility
+              from_name: comm,
+              reply_to: email,
+              message: messageBody,
+              // you can add or rename fields to match your EmailJS template
+            };
+
+            if(typeof emailjs === 'undefined' || !emailjs.send) {
+              // Fallback: alert user and close modal
+              alert('Servizio email non disponibile. Controlla la configurazione di EmailJS.');
+              if(submitBtn) submitBtn.disabled = false;
+              return;
+            }
+
+            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+              .then(function(response) {
+                alert('Richiesta inviata. Ti risponderò al più presto.');
+                closeModal();
+              }, function(error) {
+                console.error('EmailJS error:', error);
+                alert('Si è verificato un errore durante l\'invio. Riprova più tardi.');
+              })
+              .finally(function() {
+                if(submitBtn) submitBtn.disabled = false;
+              });
+          });
+
+        })();
+    </script>
+    <script>
+        (function(){
+            const carousel = document.querySelector('.carousel');
+            if(!carousel) return;
+
+            const track = carousel.querySelector('.carousel-track');
+            const slides = Array.from(carousel.querySelectorAll('.carousel-slide'));
+            const prevBtn = carousel.querySelector('.carousel-prev');
+            const nextBtn = carousel.querySelector('.carousel-next');
+            const dotsContainer = carousel.querySelector('.carousel-dots');
+            let current = 0;
+            let autoplayInterval = null;
+
+            function update() {
+                const offset = -current * 100;
+                track.style.transform = `translateX(${offset}%)`;
+                updateDots();
+            }
+
+            function goTo(index) {
+                current = (index + slides.length) % slides.length;
+                update();
+            }
+
+            function prev() { goTo(current - 1); }
+            function next() { goTo(current + 1); }
+
+            // build dots
+            slides.forEach((s, i) => {
+                const d = document.createElement('button');
+                d.type = 'button';
+                d.className = 'carousel-dot';
+                d.setAttribute('aria-label', `Vai alla slide ${i+1}`);
+                d.addEventListener('click', ()=> { goTo(i); resetAutoplay(); });
+                dotsContainer.appendChild(d);
+            });
+
+            function updateDots(){
+                const dots = Array.from(dotsContainer.children);
+                dots.forEach((d, i)=> d.classList.toggle('is-active', i===current));
+            }
+
+            if(prevBtn) {
+                prevBtn.addEventListener('click', (ev)=> { ev.preventDefault(); prev(); resetAutoplay(); });
+                prevBtn.tabIndex = 0;
+                prevBtn.setAttribute('role','button');
+                prevBtn.addEventListener('keydown', (e)=> { if(e.key==='Enter' || e.key===' ') { e.preventDefault(); prev(); resetAutoplay(); } });
+            }
+            if(nextBtn) {
+                nextBtn.addEventListener('click', (ev)=> { ev.preventDefault(); next(); resetAutoplay(); });
+                nextBtn.tabIndex = 0;
+                nextBtn.setAttribute('role','button');
+                nextBtn.addEventListener('keydown', (e)=> { if(e.key==='Enter' || e.key===' ') { e.preventDefault(); next(); resetAutoplay(); } });
+            }
+
+            // keyboard
+            carousel.addEventListener('keydown', (e)=>{
+                if(e.key === 'ArrowLeft') prev();
+                if(e.key === 'ArrowRight') next();
+            });
+
+            function startAutoplay(){
+                stopAutoplay();
+                // auto-advance every 5 seconds
+                autoplayInterval = setInterval(()=> { next(); }, 5000);
+            }
+
+            function stopAutoplay(){
+                if(autoplayInterval) { clearInterval(autoplayInterval); autoplayInterval = null; }
+            }
+
+            function resetAutoplay(){ stopAutoplay(); startAutoplay(); }
+
+            // initialize
+            goTo(0);
+            startAutoplay();
+
+            // expose controls for accessibility
+            carousel.setAttribute('tabindex', '0');
+        })();
+    </script>
 </body>
 </html>
